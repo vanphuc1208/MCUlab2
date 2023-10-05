@@ -154,11 +154,30 @@ void display7SEG(int num) {
 	}
  }
 
-void update7SEG(int idx) {
-	if(idx==0) display7SEG(1);
-	else if (idx==1) display7SEG(2);
-	else if(idx==2)  display7SEG(3);
-	else if(idx==3)  display7SEG(0);
+const int MAX_LED = 4;
+int index_led = 0;
+int led_buffer[4] = {1, 2, 3, 4};
+void update7SEG(int index){
+    switch (index){
+        case 0:
+            //Display the first 7SEG with led_buffer[0]
+        	display7SEG(led_buffer[index]);
+            break;
+        case 1:
+            //Display the second 7SEG with led_buffer[1]
+        	display7SEG(led_buffer[index]);
+            break;
+        case 2:
+            //Display the third 7SEG with led_buffer[2]
+        	display7SEG(led_buffer[index]);
+            break;
+        case 3:
+            //Display the forth 7SEG with led_buffer[3]
+        	display7SEG(led_buffer[index]);
+            break;
+        default:
+            break;
+    }
 }
 
 /* USER CODE END 0 */
