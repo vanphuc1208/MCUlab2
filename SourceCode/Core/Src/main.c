@@ -154,11 +154,30 @@ void display7SEG(int num) {
 	}
  }
 
-void update7SEG(int idx) {
-	if(idx==0) display7SEG(1);
-	else if (idx==1) display7SEG(2);
-	else if(idx==2)  display7SEG(3);
-	else if(idx==3)  display7SEG(0);
+const int MAX_LED = 4;
+int index_led = 0;
+int led_buffer[4] = {1, 2, 3, 0};
+void update7SEG(int index){
+    switch (index){
+        case 0:
+            //Display the first 7SEG with led_buffer[0]
+        	display7SEG(led_buffer[index]);
+            break;
+        case 1:
+            //Display the second 7SEG with led_buffer[1]
+        	display7SEG(led_buffer[index]);
+            break;
+        case 2:
+            //Display the third 7SEG with led_buffer[2]
+        	display7SEG(led_buffer[index]);
+            break;
+        case 3:
+            //Display the forth 7SEG with led_buffer[3]
+        	display7SEG(led_buffer[index]);
+            break;
+        default:
+            break;
+    }
 }
 
 /* USER CODE END 0 */
@@ -200,13 +219,13 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   HAL_TIM_Base_Start_IT (& htim2 );
   int led_idx=0;
-  setTimer1(50);
+  setTimer1(25);
   setTimer2(100);
   while (1)
   {
     /* USER CODE END WHILE */
 	  if(timer1_flag==1) {
-	 		  setTimer1(50);
+	 		  setTimer1(25);
 	 		  if (led_idx==0) {
 	 			  HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin,RESET);
 	 			  HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin,SET);
