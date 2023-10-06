@@ -210,8 +210,8 @@ void clearLedMatrix()
 }
 const int MAX_LED_MATRIX = 8;
 int index_led_matrix = 0;
-static uint8_t rowBuffer[8] = {0x00,0xfc,0x32,0x33,0x33,0x32,0xfc,0x00};
-static uint8_t colBuffer[8] = {0x00,0x02,0x04,0x08,0x10,0x20,0x40,0x00};
+static uint8_t rowBuffer[8] = {0xFE,0xFD,0xFB,0xF7,0xEF,0xDF,0xBF,0x7F};
+static uint8_t colBuffer[8] = {0xE7,0xC3,0x99,0x99,0x81,0x81,0x99,0x99};
 
 void displayRow (int num){
 	  HAL_GPIO_WritePin(ROW0_GPIO_Port,ROW0_Pin, ((rowBuffer[num]>>0)&0x01));
@@ -236,7 +236,7 @@ void displayCol (int num){
 }
 
 void updateLedMatrix(int index){
-	clearLedMatrix();
+	//clearLedMatrix();
 	displayCol(index);
 	displayRow(index);
 }
@@ -279,14 +279,13 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   HAL_TIM_Base_Start_IT (& htim2 );
-  int led_idx=0;
-  setTimer1(25);
-  setTimer2(100);
+  setTimer1(15);
+  clearLedMatrix();
   while (1)
   {
     /* USER CODE END WHILE */
 	  if (timer1_flag==1) {
-		  setTimer1(25);
+		  setTimer1(15);
 		  updateLedMatrix(index_led_matrix++);
 		  if(index_led_matrix==MAX_LED_MATRIX) index_led_matrix=0;
 	  }
