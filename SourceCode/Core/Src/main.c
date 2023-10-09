@@ -299,15 +299,15 @@ int main(void)
     setTimer1(25);
     setTimer2(100);
     setTimer3(15);
+    setTimer4(100);
     clearLedMatrix();
     while (1)
     {
       /* USER CODE END WHILE */
   	  if(timer1_flag==1) {
   	 		  setTimer1(25);
-  	 		  update7SEG(led_idx);
-  	 		  if(led_idx>=3) led_idx=0;
-  	 		  else led_idx++;
+  	 		  update7SEG(led_idx++);
+  	 		  if(led_idx>=4) led_idx=0;
   	 	  }
   	  if(timer2_flag==1) {
   		  setTimer2(100);
@@ -324,12 +324,15 @@ int main(void)
   		          hour = 0;
   		      }
   		  updateClockBuffer();
-  		  HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
   	  }
   	  if(timer3_flag==1) {
   		  setTimer3(15);
   		  updateLedMatrix(index_led_matrix++);
   		  if(index_led_matrix==MAX_LED_MATRIX) index_led_matrix=0;
+  	  }
+  	  if(timer4_flag==1) {
+  		  setTimer4(100);
+  		  HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
   	  }
       /* USER CODE BEGIN 3 */
     }
